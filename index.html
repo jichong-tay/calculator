@@ -1,272 +1,236 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loan Calculator</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Eurostile&display=swap">
-  <style>
-    /* CSS rule to set the font-family as Eurostile */
-    h2 {
-      font-size: 1.8em;
-    }
-    h3 {
-      font-size: 1.4em;
-    }
-    
-    body {
-      font-family: 'Eurostile', sans-serif;
-      font-size: 1em;
-    }
-
-    @media (max-width: 992px) {
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jura&amp;display=swap">
+    <style>
+      /* CSS rule to set the font-family as Eurostile */
       h2 {
-      font-size: 1.4em;
-    }
-    h3 {
-      font-size: 1em;
-    }
-    
-    body {
-      font-size: 0.8em;
-    }
-    }
-  </style>
-
-</head>
-<body>
-  <div class="container">
-    
-    <div class="row card mx-auto" style="max-width: 85%" >
-      <h2 class = "card-header">GENERAL</h2>
-      <div class="card-body">
-        <form action="">
-          <div class="mb-3">
-            <label for="sellingPrice" class="form-label">NETT SELLING PRICE ($)</label>
-            <input type="text" name="sellingPrice" class="form-control" onchange="handleChange(this.name, this.value)">
-          </div>
-          <div class="mb-3">
-            <label for="loanAmount" class="form-label">LOAN AMOUNT ($)</label>
-            <input type="text" name="loanAmount" class="form-control" onchange="handleChange(this.name, this.value)">
-          </div>
-          <div class="mb-3">
-            <label for="loanPerc" class="form-label">LOAN PERCENTAGE (%)</label>
-            <input type="text" name="loanPerc" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="loanTenure" class="form-label">LOAN TENURE (MONTHS)</label>
-            <select name="loanTenure" class="form-select" onchange="handleChange(this.name, this.value)">
-              <option value="0">Please select</option>
-              <option value="60">60</option>
-              <option value="72">72</option>
-              <option value="84">84</option>
-            </select>
-          </div>
-        </form>
-      </div>
-    
-    </div>
-    <br>
-    <div class="row card mx-auto" style="max-width: 85%" >
-      <h2 class = "card-header">BALLOON SCHEME (R10/11)</h2>
-      <div class="card-body">
-        <form action="">
-          <div class="mb-3">
-            <label for="interest" class="form-label">INTEREST (%)</label>
-            <input type="text" name="interest" class="form-control" onchange="handleChange(this.name, this.value)">
-          </div>
-          <div class="mb-3">
-            <label for="interestAmount" class="form-label">INTEREST AMOUNT ($)</label>
-            <input type="text" name="interestAmount" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="residualPerc" class="form-label">RESIDUAL PERCENTAGE (%)</label>
-            <input type="text" name="residualPerc" class="form-control" onchange="handleChange(this.name, this.value)">
-          </div>
-          <div class="mb-3">
-            <label for="residualValue" class="form-label">RESIDUAL VALUE ($)</label>
-            <input type="text" name="residualValue" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="instalment" class="form-label">INSTALMENT / MTH ($)</label>
-            <input type="text" name="instalment" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="last" class="form-label">LAST INSTALMENT ($)</label>
-            <input type="text" name="last" class="form-control" readonly>
-          </div>
-        </form>
-      </div>
-      
-      <div class="">
-        <h3>BALLOON SCHEME RV (RESIDUAL VALUE)</h3>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>TENURE</th>
-              <th>RV</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>60</td>
-              <td>40%</td>
-            </tr>
-            <tr>
-              <td>72</td>
-              <td>32%</td>
-            </tr>
-            <tr>
-              <td>84</td>
-              <td>25%</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    
-    </div>
-
-    <br>
-    
-    <div class="row card mx-auto" style="max-width: 85%" >
-      <h2 class = "card-header">HIRE PURCHASE LOAN</h2>
-      <div class="card-body">
-        <form action="">
-          <div class="mb-3">
-            <label for="interestHL" class="form-label">INTEREST (%)</label>
-            <input type="text" name="interestHL" class="form-control" onchange="handleChange(this.name, this.value)">
-          </div>
-          <div class="mb-3">
-            <label for="interestAmountHL" class="form-label">INTEREST AMOUNT ($)</label>
-            <input type="text" name="interestAmountHL" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="instalmentHL" class="form-label">INSTALMENT / MTH ($)</label>
-            <input type="text" name="instalmentHL" class="form-control" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="lastHL" class="form-label">LAST INSTALMENT ($)</label>
-            <input type="text" name="lastHL" class="form-control" readonly>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    function formatNumber(number) {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-  
-    function getInputNumber(name, type = "input") {
-      const input = document.querySelector(`form ${type}[name='${name}']`)
-      return parseFloat(input.value.replace(/,/g, "")) || 0;
-    }
-  
-    function setInputNumber(name, value, type = "input") {
-      const input = document.querySelector(`form ${type}[name='${name}']`);
-      input.value = formatNumber(value.toFixed(2));
-    }
-  
-    function handleChange(name, value) {
-      if (name === "sellingPrice") {
-        const sellingPrice = parseFloat(value.replace(/,/g, "")) || 0;
-        const loanAmount = getInputNumber("loanAmount");
-        setInputNumber("loanPerc", (loanAmount / sellingPrice * 100));
-  
-        const residualPerc = getInputNumber("residualPerc");
-        setInputNumber("residualValue", (residualPerc * sellingPrice / 100));
-  
-        return;
+        font-size: 1.8em;
       }
-  
-      if (name === "loanAmount") {
-        const loanAmount = parseFloat(value.replace(/,/g, "")) || 0;
-        const sellingPrice = getInputNumber("sellingPrice");
-        setInputNumber("loanPerc", (loanAmount / sellingPrice * 100));
-        const loanTenure = getInputNumber("loanTenure", "select");
-        const interestAmount = (loanAmount * getInputNumber("interest") * loanTenure / 1200);
-        setInputNumber("interestAmount", interestAmount);
-        const instalment = Math.round((loanAmount + interestAmount - getInputNumber("residualValue")) / getInputNumber("loanTenure", "select"));
-        setInputNumber("instalment", instalment);
-        setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
-        return;
-      }
-  
-      const tenureMap = { 60: 40, 72: 32, 84: 25 };
-      if (name === "loanTenure") {
-        const loanTenure = parseFloat(value.replace(/,/g, "")) || 0;
-        const loanAmount = getInputNumber("loanAmount");
-        const interestAmount = (loanAmount * getInputNumber("interest") * loanTenure / 1200);
-        setInputNumber("interestAmount", interestAmount);
-        setInputNumber("residualPerc", tenureMap[loanTenure]);
-        const residualValue = tenureMap[loanTenure] * getInputNumber("sellingPrice") / 100;
-        setInputNumber("residualValue", residualValue);
-        const instalment = Math.round((loanAmount + interestAmount - residualValue) / loanTenure);
-        setInputNumber("instalment", instalment);
-        setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
-      }
-  
-      if (name === "interest") {
-        const interest = parseFloat(value.replace(/,/g, "")) || 0;
-        const loanAmount = getInputNumber("loanAmount");
-        const loanTenure = getInputNumber("loanTenure", "select");
-        const interestAmount = (loanAmount * interest * loanTenure / 1200);
-        const instalment = Math.round((loanAmount + interestAmount - getInputNumber("residualValue")) / loanTenure);
-        setInputNumber("interestAmount", interestAmount);
-        setInputNumber("instalment", instalment);
-        setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
+      h3 {
+        font-size: 1.4em;
       }
 
-      if (name === "interestHL") {
-        const interest = parseFloat(value.replace(/,/g, "")) || 0;
-        const loanAmount = getInputNumber("loanAmount");
-        const loanTenure = getInputNumber("loanTenure", "select");
-        const interestAmount = (loanAmount * interest * loanTenure / 1200);
-        const instalment = Math.round((loanAmount + interestAmount) / loanTenure);
-        setInputNumber("interestAmountHL", interestAmount);
-        setInputNumber("instalmentHL", instalment);
-        setInputNumber("lastHL", instalment);
+      body {
+        font-family: 'Eurostile', sans-serif;
+        font-size: 1em;
       }
 
-    }
-  
-    function handleInputChange(event) {
-      const name = event.target.name;
-      const value = event.target.value;
-      if (name && value) {
-        if (name === "loanTenure" || name === "interest") {
-          handleChange(name, value);
-        } else if (name === "loanTenureHL" || name === "interestHL") {
-          handleChangeHL(name, value);
-        } else {
-          handleChange(name, value);
-          handleChangeHL(name, value);
+      @media (max-width: 992px) {
+        h2 {
+          font-size: 1.4em;
+        }
+        h3 {
+          font-size: 1em;
+        }
+
+        body {
+          font-size: 0.8em;
         }
       }
-    }
-  
-    function handleInputEvent(name) {
-      const input = document.querySelector(`form input[name='${name}']`);
-      input.addEventListener("input", function (event) {
-        const value = event.target.value.replace(/,/g, "");
-        event.target.value = formatNumber(value);
-      });
-    }
-  
-    // Add event listeners
-    const inputs = document.querySelectorAll("form input[name], form select[name]");
-    inputs.forEach(input => {
-      const name = input.getAttribute("name");
-      if (name) {
-        handleInputEvent(name);
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row card mx-auto" style="max-width: 85%">
+        <h2 class="card-header">GENERAL</h2>
+        <div class="card-body">
+          <form action="">
+            <div class="mb-3">
+              <label for="sellingPriceField" class="form-label">NETT SELLING PRICE ($)</label>
+              <input type="text" id="sellingPriceField" name="sellingPrice" class="form-control" onchange="handleChange(this.name, this.value)">
+            </div>
+            <div class="mb-3">
+              <label for="loanAmountField" class="form-label">LOAN AMOUNT ($)</label>
+              <input type="text" id="loanAmountField" name="loanAmount" class="form-control" onchange="handleChange(this.name, this.value)">
+            </div>
+            <div class="mb-3">
+              <label for="loanPercField" class="form-label">LOAN PERCENTAGE (%)</label>
+              <input type="text" id="loanPercField" name="loanPerc" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="loanTenureField" class="form-label">LOAN TENURE (MONTHS)</label>
+              <select name="loanTenure" id="loanTenureField" class="form-select" onchange="handleChange(this.name, this.value)">
+                <option value="0">Please select</option>
+                <option value="60">60</option>
+                <option value="72">72</option>
+                <option value="84">84</option>
+              </select>
+            </div>
+          </form>
+        </div>
+
+      </div>
+      <br>
+      <div class="row card mx-auto" style="max-width: 85%">
+        <h2 class="card-header">BALLOON SCHEME (R10/11)</h2>
+        <div class="card-body">
+          <form action="">
+            <div class="mb-3">
+              <label for="interestField" class="form-label">INTEREST (%)</label>
+              <input type="text" id="interestField" name="interest" class="form-control" onchange="handleChange(this.name, this.value)">
+            </div>
+            <div class="mb-3">
+              <label for="interestAmountField" class="form-label">INTEREST AMOUNT ($)</label>
+              <input type="text" id="interestAmountField" name="interestAmount" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="residualPercField" class="form-label">RESIDUAL PERCENTAGE (%)</label>
+              <input type="text" id="residualPercField" name="residualPerc" class="form-control" onchange="handleChange(this.name, this.value)">
+            </div>
+            <div class="mb-3">
+              <label for="residualValueField" class="form-label">RESIDUAL VALUE ($)</label>
+              <input type="text" id="residualValueField" name="residualValue" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="instalmentFiled" class="form-label">INSTALMENT / MTH ($)</label>
+              <input type="text" id="instalmentFiled" name="instalment" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="lastField" class="form-label">LAST INSTALMENT ($)</label>
+              <input type="text" id="lastField" name="last" class="form-control" readonly="">
+            </div>
+          </form>
+        </div>
+
+        <div class="">
+          <h3>BALLOON SCHEME RV (RESIDUAL VALUE)</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>TENURE</th>
+                <th>RV</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>60</td>
+                <td>40%</td>
+              </tr>
+              <tr>
+                <td>72</td>
+                <td>32%</td>
+              </tr>
+              <tr>
+                <td>84</td>
+                <td>25%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <br>
+
+      <div class="row card mx-auto" style="max-width: 85%">
+        <h2 class="card-header">HIRE PURCHASE LOAN</h2>
+        <div class="card-body">
+          <form action="">
+            <div class="mb-3">
+              <label for="interestHLField" class="form-label">INTEREST (%)</label>
+              <input type="text" id="interestHLField" name="interestHL" class="form-control" onchange="handleChange(this.name, this.value)">
+            </div>
+            <div class="mb-3">
+              <label for="interestAmountHLField" class="form-label">INTEREST AMOUNT ($)</label>
+              <input type="text" id="interestAmountHLField" name="interestAmountHL" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="instalmentHLField" class="form-label">INSTALMENT / MTH ($)</label>
+              <input type="text" id="instalmentHLField" name="instalmentHL" class="form-control" readonly="">
+            </div>
+            <div class="mb-3">
+              <label for="lastHLField" class="form-label">LAST INSTALMENT ($)</label>
+              <input type="text" id="lastHLField" name="lastHL" class="form-control" readonly="">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
-    });
-  </script>
-  
-  
-  
-  
-</body>
+
+      function getInputNumber(name, type = "input") {
+        const input = document.querySelector(`form ${type}[name='${name}']`)
+        return parseFloat(input.value.replace(/,/g, "")) || 0;
+      }
+
+      function setInputNumber(name, value, type = "input") {
+        const input = document.querySelector(`form ${type}[name='${name}']`);
+        input.value = formatNumber(parseFloat(value).toFixed(2));
+      }
+
+      function handleChange(name, value) {
+        if (name !== "loanTenure") {
+          setInputNumber(name, value.replace(/,/g, ""));
+        }
+
+        if (name === "sellingPrice") {
+          const sellingPrice = parseFloat(value.replace(/,/g, "")) || 0;
+          const loanAmount = getInputNumber("loanAmount");
+          setInputNumber("loanPerc", parseFloat((loanAmount / sellingPrice * 100)));
+
+          const residualPerc = getInputNumber("residualPerc");
+          setInputNumber("residualValue", (residualPerc * sellingPrice / 100));
+
+          return;
+        }
+
+        if (name === "loanAmount") {
+          const loanAmount = parseFloat(value.replace(/,/g, "")) || 0;
+          const sellingPrice = getInputNumber("sellingPrice");
+          setInputNumber("loanPerc", (loanAmount / sellingPrice * 100));
+          const loanTenure = getInputNumber("loanTenure", "select");
+          const interestAmount = (loanAmount * getInputNumber("interest") * loanTenure / 1200);
+          setInputNumber("interestAmount", interestAmount);
+          const instalment = Math.round((loanAmount + interestAmount - getInputNumber("residualValue")) / getInputNumber("loanTenure", "select"));
+          setInputNumber("instalment", instalment);
+          setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
+          return;
+        }
+
+        const tenureMap = { 60: 40, 72: 32, 84: 25 };
+        if (name === "loanTenure") {
+          const loanTenure = parseFloat(value.replace(/,/g, "")) || 0;
+          const loanAmount = getInputNumber("loanAmount");
+          const interestAmount = (loanAmount * getInputNumber("interest") * loanTenure / 1200);
+          setInputNumber("interestAmount", interestAmount);
+          setInputNumber("residualPerc", tenureMap[loanTenure]);
+          const residualValue = tenureMap[loanTenure] * getInputNumber("sellingPrice") / 100;
+          setInputNumber("residualValue", residualValue);
+          const instalment = Math.round((loanAmount + interestAmount - residualValue) / loanTenure);
+          setInputNumber("instalment", instalment);
+          setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
+        }
+
+        if (name === "interest") {
+          const interest = parseFloat(value.replace(/,/g, "")) || 0;
+          const loanAmount = getInputNumber("loanAmount");
+          const loanTenure = getInputNumber("loanTenure", "select");
+          const interestAmount = (loanAmount * interest * loanTenure / 1200);
+          const instalment = Math.round((loanAmount + interestAmount - getInputNumber("residualValue")) / loanTenure);
+          setInputNumber("interestAmount", interestAmount);
+          setInputNumber("instalment", instalment);
+          setInputNumber("last", Math.round((loanAmount + interestAmount) - (instalment * (loanTenure - 1))));
+        }
+
+        if (name === "interestHL") {
+          const interest = parseFloat(value.replace(/,/g, "")) || 0;
+          const loanAmount = getInputNumber("loanAmount");
+          const loanTenure = getInputNumber("loanTenure", "select");
+          const interestAmount = (loanAmount * interest * loanTenure / 1200);
+          const instalment = Math.round((loanAmount + interestAmount) / loanTenure);
+          setInputNumber("interestAmountHL", interestAmount);
+          setInputNumber("instalmentHL", instalment);
+          setInputNumber("lastHL", instalment);
+        }
+      }
+    </script>
+  </body>
 </html>
